@@ -2,48 +2,45 @@
  * @file @/routes/index/schemas.ts
  * @description Boilerplate schemas for the "/" route.
  */
-import { z } from 'zod';
+import { Schema, z } from 'zod';
 
-/** GET / */
 /**
- * @type Schema for the response of the GET / route.
+ * @type Example BaseResponse
  * @param {string} message - message to be displayed
  * @param {string} status - status of the response
  * @param {string} timestamp - timestamp of the response
  */
-const GetIndexResponseSchema = z.object({
+const BaseResponseSchema: Schema = z.object({
   message: z.string(),
-  status: z.string(),
   timestamp: z.string(),
 });
-type GetIndexResponse = z.infer<typeof GetIndexResponseSchema>;
+type BaseResponse = z.infer<typeof BaseResponseSchema>;
 
-/** POST / */
 /**
- * @type Schema for the request body of the POST / route.
+ * @type Example Person
  * @param {string} name - name of the user
  * @param {number} age - age of the user
  */
-const PostIndexRequestBodySchema = z.object({
+const PersonSchema: Schema = z.object({
   name: z.string(),
   age: z.number().int().positive(),
 });
-type PostIndexRequestBody = z.infer<typeof PostIndexRequestBodySchema>;
+type Person = z.infer<typeof PersonSchema>;
 
 /**
- * @type Schema for the response of the POST / route.
- * @param {string} message - message to be displayed
+ * @type Example PersonDescription
+ * @param {string} description - description of the person
  */
-const PostIndexResponseBodySchema = z.object({
-  message: z.string(),
+const PersonDescriptionSchema: Schema = z.object({
+  description: z.string(),
 });
-type PostIndexResponseBody = z.infer<typeof PostIndexResponseBodySchema>;
+type PersonDescription = z.infer<typeof PersonDescriptionSchema>;
 
 export {
-  GetIndexResponse,
-  GetIndexResponseSchema,
-  PostIndexRequestBody,
-  PostIndexRequestBodySchema,
-  PostIndexResponseBody,
-  PostIndexResponseBodySchema,
+  BaseResponse,
+  BaseResponseSchema,
+  Person,
+  PersonSchema,
+  PersonDescription,
+  PersonDescriptionSchema,
 };

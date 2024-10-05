@@ -2,29 +2,28 @@
  * @file @/routes/index/controllers.ts
  * @description Boilerplate controllers for "/" route.
  */
-import { GetIndexResponse, PostIndexRequestBody, PostIndexResponseBody } from './schemas';
+import { BaseResponse, Person, PersonDescription } from './schemas';
 import { getNameAndAgeString } from './utils';
 
 /**
  * Controller for GET /.
- * @returns {GetIndexResponse} - output of the index page
+ * @returns {BaseResponse} - output of the index page
  */
-function getIndex(): GetIndexResponse {
+function getIndex(): BaseResponse {
   return {
     message: 'Hello World',
-    status: 'success',
     timestamp: new Date().toISOString(),
   };
 }
 
 /**
  * Controller for POST /.
- * @param {PostIndexRequestBody} body - the body of the request
- * @returns {PostIndexResponseBody} - the response body
+ * @param {Person} body - the body of the request
+ * @returns {PersonDescription} - the response body
  */
-function postIndex(body: PostIndexRequestBody): PostIndexResponseBody {
+function postIndex(body: Person): PersonDescription {
   return {
-    message: getNameAndAgeString(body.name, body.age),
+    description: getNameAndAgeString(body.name, body.age),
   };
 }
 
