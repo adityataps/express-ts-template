@@ -8,6 +8,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 
 import errorHandlerMiddleware from '@/middlewares/errorHandling';
+import healthzRouter from '@/routes/healthz/routes';
 import indexRouter from '@/routes/index/routes';
 import { getEnvironmentVariable } from '@/utils/env';
 
@@ -21,6 +22,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 app.use('/', indexRouter);
+app.use('/healthz', healthzRouter);
 
 app.use(errorHandlerMiddleware);
 
