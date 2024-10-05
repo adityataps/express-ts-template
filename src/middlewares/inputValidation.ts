@@ -16,7 +16,7 @@ function validateBody(schema: z.ZodTypeAny): RequestHandler {
   return (req: Request, res: Response, next: NextFunction) => {
     const parsedBody = schema.safeParse(req.body);
     if (!parsedBody.success) {
-      return next(new BadRequestError('Invalid request body', parsedBody.error.format()));
+      return next(new BadRequestError('Invalid request body', parsedBody.error.issues));
     }
 
     next();
@@ -32,7 +32,7 @@ function validateParams(schema: z.ZodTypeAny): RequestHandler {
   return (req: Request, res: Response, next: NextFunction) => {
     const parsedParams = schema.safeParse(req.params);
     if (!parsedParams.success) {
-      return next(new BadRequestError('Invalid request params', parsedParams.error.format()));
+      return next(new BadRequestError('Invalid request params', parsedParams.error.issues));
     }
 
     next();
