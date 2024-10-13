@@ -1,4 +1,3 @@
-# Generated with GPT-4o :^)
 name: Release
 
 on:
@@ -12,38 +11,45 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch all history so that all tags are available
+          tags: true # Fetch all tags
 
       - name: Bump version and push tag
         id: version
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           git fetch --tags
 
-          # Get the latest tag, default to v0.0.0 if no tags are found
-          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-
-          # Remove the "v" from the tag to process the version numbers
-          VERSION=${LATEST_TAG#v}
-
-          # Split the version into major, minor, and patch numbers
-          MAJOR=$(echo $VERSION | cut -d. -f1)
-          MINOR=$(echo $VERSION | cut -d. -f2)
-          PATCH=$(echo $VERSION | cut -d. -f3)
-
-          # Decide which part to increment based on input or commit message
-          if [[ "${{ github.event.head_commit.message }}" =~ "(major)" ]]; then
-            MAJOR=$((MAJOR + 1))
-            MINOR=0
-            PATCH=0
-          elif [[ "${{ github.event.head_commit.message }}" =~ "(minor)" ]]; then
-            MINOR=$((MINOR + 1))
-            PATCH=0
+          # Get the latest tag, exit if no tags are found
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LATEST_TAG" ]; then
+            echo "No tags found, starting versioning at v1.0.0"
+            NEW_TAG="v1.0.0"
           else
-            PATCH=$((PATCH + 1))
-          fi
+            # Remove the "v" from the tag to process the version numbers
+            VERSION=${LATEST_TAG#v}
 
-          # Create the new version tag
-          NEW_TAG="v$MAJOR.$MINOR.$PATCH"
+            # Split the version into major, minor, and patch numbers
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+
+            # Decide which part to increment based on input or commit message
+            if [[ "$COMMIT_MESSAGE" =~ \(major\) ]]; then
+              MAJOR=$((MAJOR + 1))
+              MINOR=0
+              PATCH=0
+            elif [[ "$COMMIT_MESSAGE" =~ \(minor\) ]]; then
+              MINOR=$((MINOR + 1))
+              PATCH=0
+            else
+              PATCH=$((PATCH + 1))
+            fi
+
+            # Create the new version tag
+            NEW_TAG="v$MAJOR.$MINOR.$PATCH"
+          fi
 
           echo "New tag: $NEW_TAG"
 
@@ -57,7 +63,7 @@ jobs:
           fi
 
           # Set the new tag as output to pass to the next steps
-          echo "::set-output name=NEW_TAG::$NEW_TAG"
+          echo "NEW_TAG=$NEW_TAG" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
