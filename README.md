@@ -1,6 +1,6 @@
 # express-ts-template
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/adityataps/express-ts-template)
+[![Release](https://github.com/adityataps/express-ts-template/actions/workflows/release.yaml/badge.svg)](https://github.com/adityataps/express-ts-template/actions/workflows/release.yaml)
 
 This repository contains a template for building a robust Express API using TypeScript. It provides a solid foundation for developing scalable and maintainable backend applications.
 
