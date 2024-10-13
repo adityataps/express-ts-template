@@ -23,15 +23,18 @@ The purpose of this template is to streamline the process of setting up an Expre
 
 ## Getting Started
 
-To use this template:
+To use this template, fork the repository and clone it to your local machine.
 
 ```zsh
 # clone the repo with a depth of 1 to save bandwidth
-git clone https://github.com/adityataps/express-ts-template.git --depth 1 
+git clone https://github.com/<your-username>/express-ts-template.git
 
 # rename and cd into the api template directory
 mv express-ts-template api 
 cd api
+
+# add remote upstream as original repo
+git remote add upstream https://github.com/adityataps/express-ts-template.git
 
 # install dependencies
 npm install -g pnpm
@@ -39,6 +42,17 @@ pnpm install
 
 # run the app
 pnpm dev # or pnpm start
+```
+
+To fetch/merge/rebase upstream changes:
+
+```zsh
+git fetch upstream
+
+# merge upstream changes into your branch
+git merge upstream/release 
+# or rebase your branch onto upstream/release
+git rebase upstream/release
 ```
 
 ## Todo

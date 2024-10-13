@@ -6,9 +6,9 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "tsx watch -r tsconfig-paths/register --env-file=.env src/index.ts",
+    "dev": "touch .env &&tsx watch -r tsconfig-paths/register --env-file=.env src/index.ts",
     "build": "tsc && tsc-alias --verbose",
-    "start": "node --env-file=.env dist/index.js",
+    "start": "touch .env && node --env-file=.env dist/index.js",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write \"**/*.{ts,js,json,md}\"",
