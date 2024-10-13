@@ -4,6 +4,7 @@
   "description": "<project-description>",
   "author": "<author-name>",
   "main": "src/index.ts",
+  "license": "MIT",
   "scripts": {
     "dev": "tsx watch -r tsconfig-paths/register --env-file=.env src/index.ts",
     "build": "tsc && tsc-alias --verbose",
