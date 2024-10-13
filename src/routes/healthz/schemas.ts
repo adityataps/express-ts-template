@@ -4,6 +4,8 @@
  */
 import { Schema, z } from 'zod';
 
+import { APIStatusSchema, DatabaseStatusSchema } from '@/services/HealthService';
+
 enum HealthzStatus {
   ONLINE = 'online',
   OFFLINE = 'offline',
@@ -18,26 +20,8 @@ const HealthzResponseSchema: Schema = z
     name: z.string(),
     version: z.string(),
     status: z.nativeEnum(HealthzStatus),
-    dbStatus: z.array(
-      z.object({
-        name: z.string(),
-        connectionDetails: z.object({
-          host: z.string(),
-          port: z.number().int().positive(),
-        }),
-        status: z.nativeEnum(HealthzStatus),
-        message: z.string(),
-      }),
-    ),
-    apiStatus: z.array(
-      z.object({
-        name: z.string(),
-        version: z.string(),
-        url: z.string(),
-        status: z.nativeEnum(HealthzStatus),
-        message: z.string(),
-      }),
-    ),
+    dbStatus: z.array(DatabaseStatusSchema),
+    apiStatus: z.array(APIStatusSchema),
   })
   .required({
     status: true,

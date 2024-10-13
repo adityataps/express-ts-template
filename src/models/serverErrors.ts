@@ -2,6 +2,7 @@
  * @file @/models/serverErrors.ts
  * @description This file defines custom errors for internal server errors.
  */
+import { InternalServerError } from '@/models/httpErrors';
 
 /**
  * Custom error for environment variable errors.
@@ -10,11 +11,29 @@
  * @example
  * throw new EnvironmentVariableError('MY_ENV_VAR');
  */
-class EnvironmentVariableError extends Error {
+class EnvironmentVariableError extends InternalServerError {
+  public readonly internalErrorName: string;
+
   constructor(key?: string) {
     super(`Missing environment variable key${key ? `: ${key}` : ''}`);
-    this.name = 'EnvironmentVariableError';
+    this.internalErrorName = 'EnvironmentVariableError';
   }
 }
 
-export { EnvironmentVariableError };
+/**
+ * Custom error for method not implemented errors.
+ * @extends Error
+ * @param {string} method - method name
+ * @example
+ * throw new MethodNotImplementedError('myMethod');
+ */
+class MethodNotImplementedError extends InternalServerError {
+  public readonly internalErrorName: string;
+
+  constructor(method: string) {
+    super(`Method ${method} is not implemented`);
+    this.internalErrorName = 'MethodNotImplementedError';
+  }
+}
+
+export { EnvironmentVariableError, MethodNotImplementedError };

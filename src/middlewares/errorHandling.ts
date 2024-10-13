@@ -21,11 +21,11 @@ function errorHandlerMiddleware(
   res: Response,
   next: NextFunction,
 ): void {
-  console.error(err.stack);
+  console.error(err);
 
   res.status(err.statusCode).json({
     errorName: err.name,
-    errorMessage: err.message,
+    errorMessage: err.statusCode === 500 ? 'An internal server error occurred' : err.message,
     errorRoute: req.originalUrl,
     errorStatusCode: err.statusCode,
     errorData: err.data,

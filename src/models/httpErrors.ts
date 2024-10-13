@@ -6,8 +6,8 @@
 /**
  * Custom error for HTTP requests.
  * @extends Error
- * @param {string} message - error message
  * @param {number} statusCode - HTTP status code
+ * @param {string} message - error message
  * @param {Error} originalError - original error object
  * @param {Record<string, any>} data - additional data to be included in the error response
  * @example
@@ -18,16 +18,16 @@ class HttpError extends Error {
   public readonly originalError?: Error;
   public readonly data?: Record<string, any>;
 
-  constructor(message: string, statusCode: number);
+  constructor(statusCode: number, message?: string);
   constructor(
-    message: string,
     statusCode: number,
+    message?: string,
     originalError?: Error,
     data?: Record<string, any>,
   );
   constructor(
-    message: string,
     statusCode: number,
+    message?: string,
     originalError?: Error,
     data?: Record<string, any>,
   ) {
@@ -66,7 +66,7 @@ class HttpError extends Error {
  */
 class BadRequestError extends HttpError {
   constructor(message: string, data: Record<string, any>) {
-    super(message, 400, undefined, data);
+    super(400, message, undefined, data);
     this.name = 'BadRequestError';
   }
 }
@@ -81,7 +81,7 @@ class BadRequestError extends HttpError {
  */
 class InternalServerError extends HttpError {
   constructor(message: string, originalError?: Error) {
-    super(message, 500, originalError); // 500 Internal server error
+    super(500, message, originalError); // 500 Internal server error
     this.name = 'InternalServerError';
   }
 }

@@ -2,7 +2,7 @@
  * @file @/routes/healthz/controllers.ts
  * @description Controllers for the healthz route.
  */
-import { getAPIVersion } from '@/services/HealthService';
+import { getAPIVersion, getDatabasesStatus } from '@/services/HealthService';
 
 import { HealthzResponse } from './schemas';
 
@@ -16,6 +16,7 @@ function getHealthz(): HealthzResponse {
     name: 'Express API',
     version: getAPIVersion(),
     status: 'ok',
+    dbStatus: getDatabasesStatus(),
   };
 }
 
