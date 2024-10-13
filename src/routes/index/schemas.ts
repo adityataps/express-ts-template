@@ -21,26 +21,26 @@ type BaseResponse = z.infer<typeof BaseResponseSchema>;
  * @param {string} name - name of the user
  * @param {number} age - age of the user
  */
-const PersonSchema: Schema = z.object({
+const PersonRequestSchema: Schema = z.object({
   name: z.string(),
   age: z.number().int().positive(),
 });
-type Person = z.infer<typeof PersonSchema>;
+type PersonRequest = z.infer<typeof PersonRequestSchema>;
 
 /**
- * @type Example PersonDescription
- * @param {string} description - description of the person
+ * @type Example PersonResponse
+ * @param {string} description - response with description of the person
  */
-const PersonDescriptionSchema: Schema = z.object({
+const PersonResponseSchema: Schema = z.object({
   description: z.string(),
 });
-type PersonDescription = z.infer<typeof PersonDescriptionSchema>;
+type PersonResponse = z.infer<typeof PersonResponseSchema>;
 
 export {
   BaseResponse,
   BaseResponseSchema,
-  Person,
-  PersonSchema,
-  PersonDescription,
-  PersonDescriptionSchema,
+  PersonRequest,
+  PersonRequestSchema,
+  PersonResponse,
+  PersonResponseSchema,
 };

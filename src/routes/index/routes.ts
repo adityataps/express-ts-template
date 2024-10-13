@@ -7,7 +7,7 @@ import { Request, Response, Router } from 'express';
 import { validateBody } from '@/middlewares/inputValidation';
 
 import { getIndex, postIndex } from './controllers';
-import { BaseResponse, Person, PersonDescription, PersonSchema } from './schemas';
+import { BaseResponse, PersonRequest, PersonRequestSchema, PersonResponse } from './schemas';
 
 const indexRouter = Router();
 
@@ -24,12 +24,12 @@ indexRouter.get('/', (req: Request, res: Response<BaseResponse>) => {
 /**
  * @route POST /
  * @description POST method for index route.
- * @returns {Record<PersonDescription>} - boilerplate output
+ * @returns {Record<PersonResponse>} - boilerplate output
  */
 indexRouter.post(
   '/',
-  validateBody(PersonSchema),
-  (req: Request<{}, {}, Person>, res: Response<PersonDescription>) => {
+  validateBody(PersonRequestSchema),
+  (req: Request<{}, {}, PersonRequest>, res: Response<PersonResponse>) => {
     const controllerOutput = postIndex(req.body);
     console.log(controllerOutput);
     res.json(controllerOutput);

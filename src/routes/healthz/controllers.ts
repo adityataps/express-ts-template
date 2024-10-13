@@ -2,8 +2,9 @@
  * @file @/routes/healthz/controllers.ts
  * @description Controllers for the healthz route.
  */
+import { getAPIVersion } from '@/services/HealthService';
+
 import { HealthzResponse } from './schemas';
-import { getAPIVersion } from './utils';
 
 /**
  * Controller for GET /healthz.
