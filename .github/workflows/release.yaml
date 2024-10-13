@@ -1,0 +1,64 @@
+# Generated with GPT-4o :^)
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Bump version and push tag
+        id: version
+        run: |
+          git fetch --tags
+
+          # Get the latest tag, default to v0.0.0 if no tags are found
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+
+          # Remove the "v" from the tag to process the version numbers
+          VERSION=${LATEST_TAG#v}
+
+          # Split the version into major, minor, and patch numbers
+          MAJOR=$(echo $VERSION | cut -d. -f1)
+          MINOR=$(echo $VERSION | cut -d. -f2)
+          PATCH=$(echo $VERSION | cut -d. -f3)
+
+          # Decide which part to increment based on input or commit message
+          if [[ "${{ github.event.head_commit.message }}" =~ "(major)" ]]; then
+            MAJOR=$((MAJOR + 1))
+            MINOR=0
+            PATCH=0
+          elif [[ "${{ github.event.head_commit.message }}" =~ "(minor)" ]]; then
+            MINOR=$((MINOR + 1))
+            PATCH=0
+          else
+            PATCH=$((PATCH + 1))
+          fi
+
+          # Create the new version tag
+          NEW_TAG="v$MAJOR.$MINOR.$PATCH"
+
+          echo "New tag: $NEW_TAG"
+
+          # Tag and push the new version
+          git tag $NEW_TAG
+          git push origin $NEW_TAG
+
+          # Set the new tag as output to pass to the next steps
+          echo "::set-output name=NEW_TAG::$NEW_TAG"
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.NEW_TAG }}
+          release_name: 'Release ${{ steps.version.outputs.NEW_TAG }}'
+          body: 'Automatically generated release for version ${{ steps.version.outputs.NEW_TAG }}'
