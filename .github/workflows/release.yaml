@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch all history so that all tags are available
+          tags: true # Fetch all tags
 
       - name: Bump version and push tag
         id: version
@@ -30,6 +33,7 @@ jobs:
             VERSION=${LATEST_TAG#v}
 
             # Split the version into major, minor, and patch numbers
+
             MAJOR=$(echo $VERSION | cut -d. -f1)
             MINOR=$(echo $VERSION | cut -d. -f2)
             PATCH=$(echo $VERSION | cut -d. -f3)
