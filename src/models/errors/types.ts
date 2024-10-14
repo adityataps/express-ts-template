@@ -1,5 +1,5 @@
 /**
- * @file @/models/types.ts
+ * @file @/models/errors/types.ts
  * @description This file defines common types to be used across the API.
  */
 

@@ -4,8 +4,8 @@
  */
 import { NextFunction, Request, Response } from 'express';
 
-import { HttpError } from '@/models/httpErrors';
-import { RequestErrorResponse } from '@/models/types';
+import { HttpError } from '@/models/errors/httpErrors';
+import { RequestErrorResponse } from '@/models/errors/types';
 
 /**
  * Express middleware function for handling errors.

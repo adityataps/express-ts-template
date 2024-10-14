@@ -5,7 +5,7 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { z } from 'zod';
 
-import { BadRequestError } from '@/models/httpErrors';
+import { BadRequestError } from '@/models/errors/httpErrors';
 
 /**
  * Express middleware for validating request body.

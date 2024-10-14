@@ -2,7 +2,7 @@
  * @file @/utils/env.ts
  * @description Utility functions for Express API environment.
  */
-import { EnvironmentVariableError } from '@/models/serverErrors';
+import { EnvironmentVariableError } from '@/models/errors/serverErrors';
 
 /**
  * Gets environment variable value from key (or returns default)

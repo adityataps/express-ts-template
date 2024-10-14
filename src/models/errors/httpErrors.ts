@@ -1,5 +1,5 @@
 /**
- * @file @/models/httpErrors.ts
+ * @file @/models/errors/httpErrors.ts
  * @description This file defines custom errors to be used in the API.
  */
 

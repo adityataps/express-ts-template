@@ -1,8 +1,8 @@
 /**
- * @file @/models/serverErrors.ts
+ * @file @/models/errors/serverErrors.ts
  * @description This file defines custom errors for internal server errors.
  */
-import { InternalServerError } from '@/models/httpErrors';
+import { InternalServerError } from '@/models/errors/httpErrors';
 
 /**
  * Custom error for environment variable errors.

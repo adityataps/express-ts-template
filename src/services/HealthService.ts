@@ -4,7 +4,7 @@
  */
 import { z } from 'zod';
 
-import { MethodNotImplementedError } from '@/models/serverErrors';
+import { MethodNotImplementedError } from '@/models/errors/serverErrors';
 
 enum HealthStatus {
   ONLINE = 'online',
