@@ -52,18 +52,18 @@ function getCurrentTimestamp(): string {
 
 /**
  * Gets the status of the databases.
- * @returns {DatabaseStatus[]} - status of the databases
+ * @returns {Promise<DatabaseStatus[]>} - status of the databases
  */
-function getDatabasesStatus(): DatabaseStatus[] {
-  throw new MethodNotImplementedError('getDatabasesStatus');
+async function getDatabasesStatus(): Promise<DatabaseStatus[]> {
+  return Promise.reject(new MethodNotImplementedError('getDatabasesStatus'));
 }
 
 /**
  * Gets the status of the API.
- * @returns {APIStatus[]} - status of the API
+ * @returns {Promise<APIStatus[]>} - status of the API
  */
-function getAPIStatuses(): APIStatus[] {
-  throw new MethodNotImplementedError('getAPIStatuses');
+async function getAPIStatuses(): Promise<APIStatus[]> {
+  return Promise.reject(new MethodNotImplementedError('getAPIStatuses'));
 }
 
 export {

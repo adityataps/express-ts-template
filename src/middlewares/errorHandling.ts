@@ -13,22 +13,15 @@ import { RequestErrorResponse } from '@/models/errors/types';
  * @param {Request} req - request
  * @param {Response} res - response
  * @param {NextFunction} next - next function
- * @returns {Response} error response
  */
-function errorHandlerMiddleware(
-  err: HttpError,
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): void {
-  console.error(err);
-
-  res.status(err.statusCode).json({
-    errorName: err.name,
-    errorMessage: err.statusCode === 500 ? 'An internal server error occurred' : err.message,
-    errorRoute: req.originalUrl,
-    errorStatusCode: err.statusCode,
-    errorData: err.data,
+function errorHandlerMiddleware(err: HttpError, req: Request, res: Response, next: NextFunction) {
+  res.status(err.statusCode ?? 500).json({
+    errorName: err.name ?? 'Internal Server Error',
+    errorMessage:
+      err.statusCode === 500 || !err.message ? 'An internal server error occurred' : err.message,
+    errorRoute: req.originalUrl ?? '',
+    errorStatusCode: err.statusCode ?? 500,
+    errorData: err.data ?? {},
   } as RequestErrorResponse);
 }
 

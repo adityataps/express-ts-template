@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "<project-description>",
   "author": "<author-name>",
-  "main": "src/index.ts",
+  "main": "src/app.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "touch .env &&tsx watch -r tsconfig-paths/register --env-file=.env src/index.ts",
+    "dev": "touch .env && tsx watch -r tsconfig-paths/register --env-file=.env src/app.ts",
     "build": "tsc && tsc-alias --verbose",
-    "start": "touch .env && node --env-file=.env dist/index.js",
+    "start": "touch .env && node --env-file=.env dist/app.js",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write \"**/*.{ts,js,json,md}\"",
@@ -51,7 +51,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.21.0",
+    "express": "^5.0.1",
     "helmet": "^8.0.0",
     "morgan": "^1.10.0",
     "zod": "^3.23.8"

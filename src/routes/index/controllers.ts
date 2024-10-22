@@ -12,7 +12,7 @@ import { BaseResponse, PersonRequest, PersonResponse } from './schemas';
  */
 function getIndex(): BaseResponse {
   return {
-    message: 'Hello World',
+    message: 'Hello, world!',
     timestamp: new Date().toISOString(),
   };
 }

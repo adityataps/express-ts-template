@@ -32,6 +32,7 @@ class HttpError extends Error {
     data?: Record<string, any>,
   ) {
     super(message);
+    Object.setPrototypeOf(this, new.target.prototype); // Restore prototype chain
     this.name = 'HttpError';
     this.statusCode = statusCode;
     this.originalError = originalError;
@@ -72,6 +73,19 @@ class BadRequestError extends HttpError {
 }
 
 /**
+ * Custom error for not found errors.
+ * @extends HttpError
+ * @param {string} message - error message
+ * @param {Record<string, any>} data - additional data for the error response
+ */
+class NotFoundError extends HttpError {
+  constructor(message: string, data: Record<string, any>) {
+    super(404, message, undefined, data);
+    this.name = 'NotFoundError';
+  }
+}
+
+/**
  * Custom error for internal server errors.
  * @extends HttpError
  * @param {string} message - error message
@@ -86,4 +100,4 @@ class InternalServerError extends HttpError {
   }
 }
 
-export { HttpError, BadRequestError, InternalServerError };
+export { HttpError, BadRequestError, InternalServerError, NotFoundError };

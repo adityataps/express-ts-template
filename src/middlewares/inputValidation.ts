@@ -19,7 +19,7 @@ function validateBody(schema: z.ZodTypeAny): RequestHandler {
       return next(new BadRequestError('Invalid request body', parsedBody.error.issues));
     }
 
-    next();
+    return next();
   };
 }
 
@@ -35,7 +35,7 @@ function validateParams(schema: z.ZodTypeAny): RequestHandler {
       return next(new BadRequestError('Invalid request params', parsedParams.error.issues));
     }
 
-    next();
+    return next();
   };
 }
 
